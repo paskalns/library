@@ -14,7 +14,7 @@ public class AppExceptionHandler {
     }
 
     @ExceptionHandler(AppRuntimeException.class)
-    public ResponseEntity<ExceptionWrapper> handleRunTimeException(final RuntimeException e) {
+    public ResponseEntity<ExceptionWrapper> runtimeException(final RuntimeException e) {
         return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

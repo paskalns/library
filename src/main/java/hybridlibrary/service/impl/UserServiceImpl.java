@@ -1,6 +1,7 @@
 package hybridlibrary.service.impl;
 
 import hybridlibrary.dto.UserDTO;
+import hybridlibrary.exception.NotFoundException;
 import hybridlibrary.model.User;
 import hybridlibrary.repository.UserRepository;
 import hybridlibrary.service.UserService;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO findOne(long id) {
         return userRepository.findById(id)
                 .map(user -> conversionService.convert(user, UserDTO.class))
-                .orElse(null);
+                .orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", id)));
     }
 
 }

@@ -13,4 +13,15 @@ public class AppExceptionHandler {
         return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(AppRuntimeException.class)
+    public ResponseEntity<ExceptionWrapper> handleRunTimeException(final RuntimeException e) {
+        return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ExceptionWrapper> BadRequestException(final BadRequestException e) {
+        return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.BAD_REQUEST);
+
+    }
+
 }

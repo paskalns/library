@@ -19,9 +19,8 @@ public class AppExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ExceptionWrapper> BadRequestException(final BadRequestException e) {
+    public ResponseEntity<ExceptionWrapper> badRequestException(final BadRequestException e) {
         return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.BAD_REQUEST);
-
     }
 
 }

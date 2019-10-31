@@ -1,11 +1,13 @@
 package hybridlibrary.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class AppExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
@@ -13,8 +15,9 @@ public class AppExceptionHandler {
         return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(AppRuntimeException.class)
+    @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionWrapper> runtimeException(final RuntimeException e) {
+        log.error("Internal server error: ", e);
         return new ResponseEntity<>(new ExceptionWrapper(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

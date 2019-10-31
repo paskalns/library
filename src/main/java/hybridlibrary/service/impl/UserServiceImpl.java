@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDTO findOne(long id) {
-        log.info(String.format("Finding user with id %s", id));
+        log.info("Finding user with id {}", id);
         return userRepository.findById(id)
                 .map(user -> conversionService.convert(user, UserDTO.class))
                 .orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", id)));

@@ -11,6 +11,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,14 +21,6 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final ConversionService conversionService;
 
-    public boolean isPresentBookWithSerialNumber(int serialNumber) {
-        if ((bookRepository.findBySerialNumber(serialNumber)) == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public BookDTO findOne(long id) {
         return bookRepository.findById(id)
                 .map(book -> conversionService.convert(book, BookDTO.class))
@@ -35,15 +28,10 @@ public class BookServiceImpl implements BookService {
     }
 
     public BookDTO save(BookDTO bookDTO) {
-        if (isPresentBookWithSerialNumber(bookDTO.getSerialNumber())) {
-            throw new BadRequestException("Book with that serial number allready exists.");
+        if (isPresentBookWithSerialNumber(bookDTO.getSerialNumber()).isPresent()) {
+            throw new BadRequestException("Book with that serial number already exists.");
         }
-        Book book = new Book();
-        book.setSerialNumber(bookDTO.getSerialNumber());
-        book.setName(bookDTO.getName());
-        book.setAuthors(bookDTO.getAuthors());
-        book.setBookQty(bookDTO.getBookQty());
-        book.setBookQtyCopy(book.getBookQtyCopy());
+        Book book = conversionService.convert(bookDTO, Book.class);
         return conversionService.convert(bookRepository.save(book), BookDTO.class);
     }
 
@@ -60,18 +48,20 @@ public class BookServiceImpl implements BookService {
     }
 
     public BookDTO update(Long id, BookDTO bookDTO) {
-        Book book = bookRepository.findById(id)
+        bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Book with id %s not found", id)));
         Book bookBySerialNumber = bookRepository.findBySerialNumber(bookDTO.getSerialNumber());
         if (bookBySerialNumber != null && bookBySerialNumber.getId() != id) {
-            throw new BadRequestException("Book with that serial number allready exists.");
+            throw new BadRequestException("Book with that serial number already exists.");
         }
-        book.setSerialNumber(bookDTO.getSerialNumber());
-        book.setName(bookDTO.getName());
-        book.setAuthors(bookDTO.getAuthors());
-        book.setBookQty(bookDTO.getBookQty());
-        book.setBookQtyCopy(bookDTO.getBookQtyCopy());
+
+        Book book = conversionService.convert(bookDTO, Book.class);
+        book.setId(id);
         return conversionService.convert(bookRepository.save(book), BookDTO.class);
+    }
+
+    private Optional<Book> isPresentBookWithSerialNumber(int serialNumber) {
+        return Optional.ofNullable(bookRepository.findBySerialNumber(serialNumber));
     }
 
 }

@@ -1,5 +1,6 @@
 package hybridlibrary.config;
 
+import hybridlibrary.converter.BookDTOToBookConverter;
 import hybridlibrary.converter.BookToBookDTOConverter;
 import hybridlibrary.converter.UserToUserDTOConverter;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new UserToUserDTOConverter());
         registry.addConverter(new BookToBookDTOConverter());
+        registry.addConverter(new BookDTOToBookConverter());
     }
 
 }

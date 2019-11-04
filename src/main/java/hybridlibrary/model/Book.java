@@ -1,0 +1,29 @@
+package hybridlibrary.model;
+
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table
+@Data
+public class Book extends AbstractEntity {
+
+    @Column(nullable = false, unique = true)
+    private int serialNumber;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String authors;
+
+    @Column(nullable = false)
+    private int bookQty;
+
+    @Column(nullable = false)
+    private int bookQtyCopy;
+
+}

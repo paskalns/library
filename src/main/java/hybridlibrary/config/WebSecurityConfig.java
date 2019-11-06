@@ -34,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/books").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/books/**").hasRole("ADMIN")
-        .and().csrf().disable();
+                .antMatchers("/swagger-ui.html/**").permitAll()
+                .and().csrf().disable();
     }
 
 }

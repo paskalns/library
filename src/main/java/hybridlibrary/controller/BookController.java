@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
-    public ResponseEntity<BookDTO> create(@RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> create(@RequestBody @Valid BookDTO bookDTO) {
         return ResponseEntity.ok(bookService.save(bookDTO));
     }
 
@@ -38,7 +39,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookDTO> update(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> update(@PathVariable Long id, @Valid @RequestBody BookDTO bookDTO) {
         return ResponseEntity.ok(bookService.update(id, bookDTO));
     }
 

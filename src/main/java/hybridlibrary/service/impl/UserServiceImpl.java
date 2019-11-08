@@ -8,10 +8,12 @@ import hybridlibrary.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +35,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .map(user -> conversionService.convert(user, UserDTO.class))
                 .orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", id)));
+    }
+
+    @Override
+    public User loadUserByUsername(String username) {
+        return userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new NotFoundException(String.format("User with username %s not found", username)));
     }
 
 }

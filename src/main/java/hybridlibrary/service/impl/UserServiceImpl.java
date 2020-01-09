@@ -21,12 +21,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ConversionService conversionService;
 
+    @Override
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream()
                 .map(user -> conversionService.convert(user, UserDTO.class))
                 .collect(Collectors.toList());
     }
 
+    @Override
     public UserDTO findOne(long id) {
         log.info("Finding user with id {}", id);
         return userRepository.findById(id)

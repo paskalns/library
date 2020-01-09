@@ -2,7 +2,6 @@ package hybridlibrary.service;
 
 import hybridlibrary.dto.UserDTO;
 import hybridlibrary.model.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 

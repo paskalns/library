@@ -2,14 +2,12 @@ package hybridlibrary.service.impl;
 
 
 import hybridlibrary.model.User;
-import hybridlibrary.repository.UserRepository;
 import hybridlibrary.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

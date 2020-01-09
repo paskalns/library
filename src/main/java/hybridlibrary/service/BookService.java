@@ -1,7 +1,6 @@
 package hybridlibrary.service;
 
 import hybridlibrary.dto.BookDTO;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -15,6 +14,6 @@ public interface BookService {
 
     void delete(Long id);
 
-    BookDTO update(Long id, @RequestBody BookDTO bookDTO);
+    BookDTO update(Long id, BookDTO bookDTO);
 
 }

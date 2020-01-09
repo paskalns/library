@@ -21,14 +21,14 @@ public class Swagger2Config {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("hybridlibrary.controller"))
+                        .basePackage("library.controller"))
                 .paths(PathSelectors.regex("/.*"))
                 .build().apiInfo(apiEndPointsInfo())
                 .securitySchemes(Collections.singletonList(new BasicAuth("basicAuth")));
     }
 
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Hybrid library Spring Boot REST API")
+        return new ApiInfoBuilder().title("Library Spring Boot REST API")
                 .description("REST API for library application")
                 .build();
     }

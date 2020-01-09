@@ -14,11 +14,7 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerIntegrationTest {
-
-    private TestRestTemplate restTemplate;
+public class UserControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void findAll() {
@@ -48,11 +44,6 @@ public class UserControllerIntegrationTest {
         UserDTO userDTO = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    }
-
-    @Autowired
-    public void setRestTemplate(TestRestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
     }
 
 }

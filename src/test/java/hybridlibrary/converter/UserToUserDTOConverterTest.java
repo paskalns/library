@@ -1,13 +1,8 @@
 package hybridlibrary.converter;
 
-import hybridlibrary.dto.BookDTO;
 import hybridlibrary.dto.UserDTO;
-import hybridlibrary.model.Book;
 import hybridlibrary.model.User;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
